@@ -1,29 +1,32 @@
-import { SocketAuthPayload } from '/shared/payloads/socketPayloadTypes.ts';
 import { SocketResponses } from '/shared/payloads/socketResponses.ts';
+import { SocketPayload } from '/shared/payloads/socketPayload.ts';
 
-import { cache } from '/shared/cache.ts';
-import * as SQL from '../../database.ts';
+import { getUserByToken } from '/server/database.ts';
 
-import { db } from '/server/main.ts';
+export const authorizeConnection = (
+  socket: WebSocket,
+): Promise<[true, string] | [false, null]> => {
+  return new Promise((resolve) => {
+    let authorized = false;
 
-export const startAuthorization = (socket: WebSocket) => {
-  let authorized = false;
+    setTimeout(() => {
+      if (!authorized) socket.close(...SocketResponses.UNAUTHORIZED);
+      resolve([false, null]);
+    }, 5000);
 
-  setTimeout(() => {
-    if (!authorized) socket.close(...SocketResponses.UNAUTHORIZED);
-  }, 5000);
+    socket.addEventListener('message', ({ data }) => {
+      const payload = SocketPayload.fromString(data);
 
-  return (payload: SocketAuthPayload) => {
-    const { token } = payload;
+      if (payload === null || payload.type !== 'auth') return;
 
-    if (!token) {
-      socket.close();
-    }
+      if (payload.token) {
+        const user = getUserByToken(payload.token);
+        authorized = user !== undefined;
+      }
 
-    const user = cache(token, () => {
-      return db.prepare(SQL.GET_USER_BY_TOKEN(token)).value();
+      if (authorized) {
+        resolve([true, payload.token]);
+      }
     });
-
-    authorized = user !== undefined;
-  };
+  });
 };

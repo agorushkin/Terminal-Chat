@@ -2,7 +2,7 @@ import { Handler } from 'x/http';
 import { HttpResponses } from '/shared/payloads/httpResponses.ts';
 import { HttpPayload } from '/shared/payloads/httpPayload.ts';
 
-import * as db from '../../database.ts';
+import { checkUserExists, createUser } from '/server/database.ts';
 
 export const registerUser: Handler = async (
   { responded, text, respond },
@@ -17,12 +17,12 @@ export const registerUser: Handler = async (
     return;
   }
 
-  const user = db.checkUserExists(payload.username);
+  const user = checkUserExists(payload.username);
 
   if (user) {
     respond(HttpResponses.USER_EXISTS);
     return;
   }
 
-  db.createUser(payload.username, payload.key);
+  createUser(payload.username, payload.key);
 };

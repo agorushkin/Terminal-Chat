@@ -1,19 +1,23 @@
 import { Server, ServerBrodcaster } from 'x/http';
-import { DB } from 'x/sqlite';
 
-import * as SQL from './database.ts';
+import { createChannelTable, createUserTable } from '/server/database.ts';
 
 import { checkAuthorization } from '/server/routes/authorize.ts';
 import { handleWebsocketConnection } from '/server/routes/connect.ts';
-import { sendMessage } from '/server/routes/post/sendMessage.ts';
+
+import { channelRouter } from '/server/routes/channel/router.ts';
+import { authRouter } from '/server/routes/auth/router.ts';
 
 export const server = new Server();
 export const broadcaster = new ServerBrodcaster();
+export const connections = new Map<string, WebSocket>();
 
-export const db = new DB('./data/current.db');
+createUserTable();
+createChannelTable();
+
+server.use(checkAuthorization);
+server.use(...channelRouter, ...authRouter);
 
 server.get('/connect', handleWebsocketConnection);
-server.get('/*', checkAuthorization);
-server.post('/message/:channel', sendMessage);
 
 server.listen(8080);

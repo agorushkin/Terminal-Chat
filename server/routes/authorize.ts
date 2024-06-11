@@ -1,16 +1,19 @@
 import { Handler } from 'x/http';
 import { HttpResponses } from '/shared/payloads/httpResponses.ts';
 
+import { getUserByToken } from '/server/database.ts';
+
 export const checkAuthorization: Handler = (
   { headers, href, responded, respond },
 ): void => {
   if (responded) return;
+  const token = headers.get('Authorization');
 
-  const authorization = headers.get('Authorization');
+  const path = new URL(href).pathname;
 
-  if (new URL(href).pathname === '/register') return;
+  if (path === '/register' || path === '/connect') return;
 
-  if (!authorization || authorization !== 'test') {
+  if (!token || !getUserByToken(token)) {
     return respond(HttpResponses.UNAUTHORIZED);
   }
 };
