@@ -1,0 +1,10 @@
+@base=http://localhost:8080
+@room=test
+@token=test
+
+### Send a message to a room
+
+POST {{base}}/message/{{room}}
+Authorization: {{token}}
+
+"Hello, World"
