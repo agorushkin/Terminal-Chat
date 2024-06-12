@@ -9,7 +9,7 @@ import { getUserKey, getUserToken, setUserToken } from '/server/database.ts';
 import { connections } from '/server/main.ts';
 
 export const generateToken: Handler = async (
-  { responded, text, respond },
+  { response, responded, text },
 ): Promise<void> => {
   if (responded) return;
 
@@ -17,19 +17,19 @@ export const generateToken: Handler = async (
   const payload = HttpPayload.fromString(json);
 
   if (!payload || payload.type !== 'login') {
-    respond(HttpResponses.BAD_REQUEST);
+    response = { ...response, ...HttpResponses.BAD_REQUEST };
     return;
   }
 
   if (!payload.username || !payload.signature || !payload.challenge) {
-    respond(HttpResponses.INVALID_LOGIN_REQUEST);
+    response = { ...response, ...HttpResponses.INVALID_LOGIN_REQUEST };
     return;
   }
 
   const key = getUserKey(payload.username);
 
   if (!key) {
-    respond(HttpResponses.USER_NOT_FOUND);
+    response = { ...response, ...HttpResponses.USER_NOT_FOUND };
     return;
   }
 
@@ -50,7 +50,10 @@ export const generateToken: Handler = async (
     new TextEncoder().encode(payload.challenge),
   );
 
-  if (!isValid) return respond(HttpResponses.INVALID_SIGNATURE);
+  if (!isValid) {
+    response = { ...response, ...HttpResponses.INVALID_SIGNATURE };
+    return;
+  }
 
   const currentToken = getUserToken(payload.username);
   if (currentToken && connections.has(currentToken)) {
@@ -59,10 +62,8 @@ export const generateToken: Handler = async (
 
   const token = ulid();
   setUserToken(payload.username, token);
-  const response = new HttpPayload({ type: 'token', token }).toString();
-  respond({
-    status: 200,
-    body: response,
-    headers: { 'Content-Type': 'application/json' },
-  });
+
+  response.headers.append('Content-Type', 'application/json');
+  response.body = new HttpPayload({ type: 'token', token }).toString();
+  response.status = 200;
 };

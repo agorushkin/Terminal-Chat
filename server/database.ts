@@ -19,20 +19,25 @@ export const createUserTable = () => {
 };
 
 export const createUser = (name: string, key: string) => {
-  db.execute(`INSERT INTO users (username, key) VALUES ('${name}', '${key}')`);
+  db.query('INSERT INTO users (username, key) VALUES (:name, :key)', {
+    name,
+    key,
+  });
 };
 
-export const checkUserExists = (user: string) => {
+export const checkUserExists = (name: string) => {
   const entry = db.query<[0 | 1]>(
-    `SELECT EXISTS(SELECT 1 FROM users WHERE username = '${user}')`,
+    'SELECT EXISTS(SELECT 1 FROM users WHERE username = :name)',
+    { name },
   );
 
   return entry?.[0]?.[0] === 1;
 };
 
-export const getUserToken = (user: string) => {
+export const getUserToken = (name: string) => {
   const entry = db.query<[string | null]>(
-    `SELECT token FROM users WHERE username = '${user}'`,
+    'SELECT token FROM users WHERE username = :name',
+    { name },
   );
 
   return entry.length === 0 ? null : entry?.[0]?.[0];
@@ -40,27 +45,33 @@ export const getUserToken = (user: string) => {
 
 export const getUserByToken = (token: string) => {
   const entry = db.query<[string]>(
-    `SELECT username FROM users WHERE token = '${token}'`,
+    'SELECT username FROM users WHERE token = :token',
+    { token },
   );
 
   return entry.length === 0 ? null : entry?.[0]?.[0];
 };
 
-export const setUserToken = (user: string, token: string) => {
-  db.execute(`UPDATE users SET token = '${token}' WHERE username = '${user}'`);
+export const setUserToken = (name: string, token: string) => {
+  db.query('UPDATE users SET token = :token WHERE username = :name', {
+    name,
+    token,
+  });
 };
 
-export const getUserKey = (user: string) => {
+export const getUserKey = (name: string) => {
   const entry = db.query<[string]>(
-    `SELECT key FROM users WHERE username = '${user}'`,
+    'SELECT key FROM users WHERE username = :name',
+    { name },
   );
 
   return entry.length === 0 ? null : entry?.[0]?.[0];
 };
 
-export const getUserChannels = (user: string) => {
+export const getUserChannels = (name: string) => {
   const entry = db.query<[string | null]>(
-    `SELECT channels FROM users WHERE username = '${user}'`,
+    'SELECT channels FROM users WHERE username = :name',
+    { name },
   );
 
   return entry.length === 0
@@ -84,14 +95,19 @@ export const createChannel = (
   channel: string,
   owner: string,
 ) => {
-  db.execute(
-    `INSERT INTO channel (name, owner, users) VALUES ('${channel}', '${owner}', '${owner}')`,
+  db.query(
+    'INSERT INTO channel (name, owner, users) VALUES (:channel, :owner, :owner)',
+    {
+      channel,
+      owner,
+    },
   );
 };
 
 export const checkChannelExists = (channel: string) => {
   const entry = db.query<[0 | 1]>(
-    `SELECT EXISTS(SELECT 1 FROM channel WHERE name = '${channel}')`,
+    'SELECT EXISTS(SELECT 1 FROM channel WHERE name = :channel)',
+    { channel },
   );
 
   return entry.length === 0 ? null : entry?.[0]?.[0];
@@ -99,7 +115,8 @@ export const checkChannelExists = (channel: string) => {
 
 export const getChannelName = (channel: string) => {
   const entry = db.query<[string]>(
-    `SELECT name FROM channel WHERE name = '${channel}'`,
+    'SELECT name FROM channel WHERE name = :channel',
+    { channel },
   );
 
   return entry.length === 0 ? null : entry?.[0]?.[0];
@@ -107,7 +124,8 @@ export const getChannelName = (channel: string) => {
 
 export const getChannelUsers = (channel: string) => {
   const entry = db.query<[string]>(
-    `SELECT users FROM channel WHERE name = '${channel}'`,
+    'SELECT users FROM channel WHERE name = :channel',
+    { channel },
   );
 
   return entry.length === 0
@@ -117,7 +135,8 @@ export const getChannelUsers = (channel: string) => {
 
 export const getChannelOwner = (channel: string) => {
   const entry = db.query<[string]>(
-    `SELECT owner FROM channel WHERE name = '${channel}'`,
+    'SELECT owner FROM channel WHERE name = :channel',
+    { channel },
   );
 
   return entry.length === 0 ? null : entry?.[0]?.[0];
@@ -125,26 +144,34 @@ export const getChannelOwner = (channel: string) => {
 
 export const checkUserInChannel = (channel: string, user: string) => {
   const entry = db.query<[0 | 1]>(
-    `SELECT EXISTS(SELECT 1 FROM channel WHERE name = '${channel}' AND users LIKE '%${user}%')`,
+    'SELECT EXISTS(SELECT 1 FROM channel WHERE name = :channel AND users LIKE :user)',
+    {
+      channel,
+      user: `%${user}%`,
+    },
   );
 
   return entry?.[0]?.[0] === 1;
 };
 
 export const addUserToChannel = (channel: string, user: string) => {
-  db.execute(
-    `UPDATE channel SET users = users || ',${user}' WHERE name = '${channel}'`,
+  db.query(
+    'UPDATE channel SET users = users || :user WHERE name = :channel',
+    { channel, user: `,${user}` },
   );
-  db.execute(
-    `UPDATE users SET channels = channels || ',${channel}' WHERE username = '${user}'`,
+  db.query(
+    'UPDATE users SET channels = channels || :channel WHERE username = :user',
+    { channel: `,${channel}`, user },
   );
 };
 
 export const removeUserFromChannel = (channel: string, user: string) => {
-  db.execute(
-    `UPDATE channel SET users = REPLACE(users, '${user}', '') WHERE name = '${channel}'`,
+  db.query(
+    "UPDATE channel SET users = REPLACE(users, :user, '') WHERE name = :channel",
+    { channel, user: `,${user}` },
   );
-  db.execute(
-    `UPDATE users SET channels = REPLACE(channels, '${channel}', '') WHERE username = '${user}'`,
+  db.query(
+    "UPDATE users SET channels = REPLACE(channels, :channel, '') WHERE username = :user",
+    { channel: `,${channel}`, user },
   );
 };

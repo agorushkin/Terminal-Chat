@@ -2,20 +2,33 @@
   "imports": {
     "/": "./",
     "./": "./",
-    "x/http": "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/mod.ts",
-    "x/sqlite": "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/mod.ts",
-    "x/tui": "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/mod.ts",
-    "x/tui/": "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/",
-    "x/crayon": "https://raw.githubusercontent.com/crayon-js/crayon/68123ba/main.ts"
+    "x/http": "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/mod.ts",
+    "x/sqlite": "https://deno.land/x/sqlite@v3.8/mod.ts",
+    "x/webview": "jsr:@webview/webview",
+    "x/emit": "https://deno.land/x/emit@0.40.0/mod.ts",
+    "x/preact": "https://esm.sh/preact",
+    "x/preact/hooks": "https://esm.sh/preact/hooks"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "https://esm.sh/preact"
   },
   "tasks": {
     "debug-server": "deno run --watch --allow-net --allow-read --allow-write server/main.ts",
-    "debug-client": "deno run --watch --allow-net --allow-write --unstable-broadcast-channel client/main.ts"
+    "debug-client": "deno run --watch --allow-net --allow-write --unstable-broadcast-channel client/main.ts",
+    "bundle": "deno run -A bundle/bundle.ts"
   },
   "fmt": {
     "singleQuote": true,
     "semiColons": true,
     "useTabs": false,
     "indentWidth": 2
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ]
+    }
   }
 }

@@ -5,7 +5,7 @@ import { HttpPayload } from '/shared/payloads/httpPayload.ts';
 import { checkUserExists, createUser } from '/server/database.ts';
 
 export const registerUser: Handler = async (
-  { responded, text, respond },
+  { response, responded, text },
 ): Promise<void> => {
   if (responded) return;
 
@@ -13,17 +13,16 @@ export const registerUser: Handler = async (
   const payload = HttpPayload.fromString(json);
 
   if (!payload || payload.type !== 'registration') {
-    respond(HttpResponses.BAD_REQUEST);
+    response = { ...response, ...HttpResponses.BAD_REQUEST };
     return;
   }
 
   const user = checkUserExists(payload.username);
 
   if (user) {
-    respond(HttpResponses.USER_EXISTS);
+    response = { ...response, ...HttpResponses.USER_EXISTS };
     return;
   }
 
   createUser(payload.username, payload.key);
-  respond(HttpResponses.OK);
 };

@@ -7,24 +7,30 @@ import { checkChannelExists, getUserByToken } from '/server/database.ts';
 import { broadcaster } from '/server/main.ts';
 
 export const sendMessage: Handler = async (
-  { responded, params, text, headers, respond },
+  { response, responded, params, text, headers },
 ): Promise<void> => {
   if (responded) return;
+
   const token = headers.get('Authorization')!;
   const channelId = params.get('channel');
 
   if (!channelId) {
-    return respond(HttpResponses.CHANNEL_NOT_FOUND);
+    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    return;
   }
 
   const channel = checkChannelExists(channelId);
-  if (!channel) return respond(HttpResponses.CHANNEL_NOT_FOUND);
+  if (!channel) {
+    response = { ...response, ...HttpResponses.CHANNEL_NOT_FOUND };
+    return;
+  }
 
   const author = getUserByToken(token)!;
 
   const message = HttpPayload.fromString(await text());
   if (!message || message.type !== 'message') {
-    return respond(HttpResponses.BAD_REQUEST);
+    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    return;
   }
 
   const payload = new SocketPayload({
@@ -34,5 +40,4 @@ export const sendMessage: Handler = async (
   });
 
   broadcaster.broadcast(channel, payload.toString());
-  respond(HttpResponses.OK);
 };

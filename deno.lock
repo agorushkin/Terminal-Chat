@@ -2,16 +2,34 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "jsr:@denosaurs/plug@1": "jsr:@denosaurs/plug@1.0.6",
+      "jsr:@deno/cache-dir@0.8": "jsr:@deno/cache-dir@0.8.0",
+      "jsr:@denosaurs/plug@^1.0.5": "jsr:@denosaurs/plug@1.0.6",
       "jsr:@std/assert@^0.217.0": "jsr:@std/assert@0.217.0",
+      "jsr:@std/assert@^0.218.2": "jsr:@std/assert@0.218.2",
       "jsr:@std/assert@^0.221.0": "jsr:@std/assert@0.221.0",
+      "jsr:@std/bytes@^0.218.2": "jsr:@std/bytes@0.218.2",
       "jsr:@std/encoding@^0.221.0": "jsr:@std/encoding@0.221.0",
+      "jsr:@std/fmt@^0.218.2": "jsr:@std/fmt@0.218.2",
       "jsr:@std/fmt@^0.221.0": "jsr:@std/fmt@0.221.0",
+      "jsr:@std/fs@^0.218.2": "jsr:@std/fs@0.218.2",
       "jsr:@std/fs@^0.221.0": "jsr:@std/fs@0.221.0",
+      "jsr:@std/io@^0.218.2": "jsr:@std/io@0.218.2",
       "jsr:@std/path@0.217": "jsr:@std/path@0.217.0",
-      "jsr:@std/path@^0.221.0": "jsr:@std/path@0.221.0"
+      "jsr:@std/path@^0.218.2": "jsr:@std/path@0.218.2",
+      "jsr:@std/path@^0.221.0": "jsr:@std/path@0.221.0",
+      "jsr:@webview/webview": "jsr:@webview/webview@0.8.0",
+      "npm:@types/node": "npm:@types/node@18.16.19"
     },
     "jsr": {
+      "@deno/cache-dir@0.8.0": {
+        "integrity": "e87e80a404958f6350d903e6238b72afb92468378b0b32111f7a1e4916ac7fe7",
+        "dependencies": [
+          "jsr:@std/fmt@^0.218.2",
+          "jsr:@std/fs@^0.218.2",
+          "jsr:@std/io@^0.218.2",
+          "jsr:@std/path@^0.218.2"
+        ]
+      },
       "@denosaurs/plug@1.0.6": {
         "integrity": "6cf5b9daba7799837b9ffbe89f3450510f588fafef8115ddab1ff0be9cb7c1a7",
         "dependencies": [
@@ -24,14 +42,26 @@
       "@std/assert@0.217.0": {
         "integrity": "c98e279362ca6982d5285c3b89517b757c1e3477ee9f14eb2fdf80a45aaa9642"
       },
+      "@std/assert@0.218.2": {
+        "integrity": "7f0a5a1a8cf86607cd6c2c030584096e1ffad27fc9271429a8cb48cfbdee5eaf"
+      },
       "@std/assert@0.221.0": {
         "integrity": "a5f1aa6e7909dbea271754fd4ab3f4e687aeff4873b4cef9a320af813adb489a"
+      },
+      "@std/bytes@0.218.2": {
+        "integrity": "91fe54b232dcca73856b79a817247f4a651dbb60d51baafafb6408c137241670"
       },
       "@std/encoding@0.221.0": {
         "integrity": "d1dd76ef0dc5d14088411e6dc1dede53bf8308c95d1537df1214c97137208e45"
       },
+      "@std/fmt@0.218.2": {
+        "integrity": "99526449d2505aa758b6cbef81e7dd471d8b28ec0dcb1491d122b284c548788a"
+      },
       "@std/fmt@0.221.0": {
         "integrity": "379fed69bdd9731110f26b9085aeb740606b20428ce6af31ef6bd45ef8efa62a"
+      },
+      "@std/fs@0.218.2": {
+        "integrity": "dd9431453f7282e8c577cc22c9e6d036055a9a980b5549f887d6012969fabcca"
       },
       "@std/fs@0.221.0": {
         "integrity": "028044450299de8ed5a716ade4e6d524399f035513b85913794f4e81f07da286",
@@ -40,10 +70,23 @@
           "jsr:@std/path@^0.221.0"
         ]
       },
+      "@std/io@0.218.2": {
+        "integrity": "c64fbfa087b7c9d4d386c5672f291f607d88cb7d44fc299c20c713e345f2785f",
+        "dependencies": [
+          "jsr:@std/assert@^0.218.2",
+          "jsr:@std/bytes@^0.218.2"
+        ]
+      },
       "@std/path@0.217.0": {
         "integrity": "1217cc25534bca9a2f672d7fe7c6f356e4027df400c0e85c0ef3e4343bc67d11",
         "dependencies": [
           "jsr:@std/assert@^0.217.0"
+        ]
+      },
+      "@std/path@0.218.2": {
+        "integrity": "b568fd923d9e53ad76d17c513e7310bda8e755a3e825e6289a0ce536404e2662",
+        "dependencies": [
+          "jsr:@std/assert@^0.218.2"
         ]
       },
       "@std/path@0.221.0": {
@@ -51,15 +94,79 @@
         "dependencies": [
           "jsr:@std/assert@^0.221.0"
         ]
+      },
+      "@webview/webview@0.8.0": {
+        "integrity": "5fc571eac35026e8b5efd2bb6f483c2b4e3925e2244e9a9a66b0bc90bdef4983",
+        "dependencies": [
+          "jsr:@denosaurs/plug@^1.0.5"
+        ]
+      }
+    },
+    "npm": {
+      "@types/node@18.16.19": {
+        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
+        "dependencies": {}
       }
     }
   },
+  "redirects": {
+    "https://deno.land/x/emit/mod.ts": "https://deno.land/x/emit@0.40.0/mod.ts",
+    "https://esm.sh/@supabase/supabase-js@2": "https://esm.sh/@supabase/supabase-js@2.43.4",
+    "https://esm.sh/preact": "https://esm.sh/preact@10.22.0",
+    "https://esm.sh/preact/hooks": "https://esm.sh/preact@10.22.0/hooks",
+    "https://esm.sh/preact/jsx-runtime": "https://esm.sh/preact@10.22.0/jsx-runtime"
+  },
   "remote": {
+    "https://deno.land/std@0.186.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
+    "https://deno.land/std@0.186.0/_util/os.ts": "d932f56d41e4f6a6093d56044e29ce637f8dcc43c5a90af43504a889cf1775e3",
+    "https://deno.land/std@0.186.0/path/_constants.ts": "e49961f6f4f48039c0dfed3c3f93e963ca3d92791c9d478ac5b43183413136e0",
+    "https://deno.land/std@0.186.0/path/_interface.ts": "6471159dfbbc357e03882c2266d21ef9afdb1e4aa771b0545e90db58a0ba314b",
+    "https://deno.land/std@0.186.0/path/_util.ts": "d7abb1e0dea065f427b89156e28cdeb32b045870acdf865833ba808a73b576d0",
+    "https://deno.land/std@0.186.0/path/common.ts": "ee7505ab01fd22de3963b64e46cff31f40de34f9f8de1fff6a1bd2fe79380000",
+    "https://deno.land/std@0.186.0/path/glob.ts": "d479e0a695621c94d3fd7fe7abd4f9499caf32a8de13f25073451c6ef420a4e1",
+    "https://deno.land/std@0.186.0/path/mod.ts": "ee161baec5ded6510ee1d1fb6a75a0f5e4b41f3f3301c92c716ecbdf7dae910d",
+    "https://deno.land/std@0.186.0/path/posix.ts": "8b7c67ac338714b30c816079303d0285dd24af6b284f7ad63da5b27372a2c94d",
+    "https://deno.land/std@0.186.0/path/separator.ts": "0fb679739d0d1d7bf45b68dacfb4ec7563597a902edbaf3c59b50d5bcadd93b1",
+    "https://deno.land/std@0.186.0/path/win32.ts": "d186344e5583bcbf8b18af416d13d82b35a317116e6460a5a3953508c3de5bba",
     "https://deno.land/x/crayon@3.3.3/mod.ts": "82ad225583a483c4837577971629cddaa22614093af8353da6426b9366de9780",
     "https://deno.land/x/crayon@3.3.3/src/conversions.ts": "9bfd3b1fbe412bcba092890ac558b6beaad4c3aa399cd99d45fadb324d28afd6",
     "https://deno.land/x/crayon@3.3.3/src/crayon.ts": "6b237baa08a31c903436e040afd2228a7fffaa5d11dddc58e3c402f79b3c1d04",
     "https://deno.land/x/crayon@3.3.3/src/styles.ts": "aa588b57b2c0482dc5c6f53109b4287831a9827c0aeef9a88129beae1172c1ee",
     "https://deno.land/x/crayon@3.3.3/src/util.ts": "af8884a917488de76ac0c2b92482093ade74514ece77a4c64e5eb5b0f6ed68e6",
+    "https://deno.land/x/denoflate@1.2.1/mod.ts": "f5628e44b80b3d80ed525afa2ba0f12408e3849db817d47a883b801f9ce69dd6",
+    "https://deno.land/x/denoflate@1.2.1/pkg/denoflate.js": "b9f9ad9457d3f12f28b1fb35c555f57443427f74decb403113d67364e4f2caf4",
+    "https://deno.land/x/denoflate@1.2.1/pkg/denoflate_bg.wasm.js": "d581956245407a2115a3d7e8d85a9641c032940a8e810acbd59ca86afd34d44d",
+    "https://deno.land/x/emit@0.40.0/_utils.ts": "98412edc7aa29e77d592b54fbad00bdec1b05d0c25eb772a5f8edc9813e08d88",
+    "https://deno.land/x/emit@0.40.0/emit.generated.js": "65621c730ae9e4e818a3f83913562101dc9a371befbdb44d81e09a1532af5089",
+    "https://deno.land/x/emit@0.40.0/mod.ts": "04b1818a60d6f85ca991bc4369634ea55d51388c4154b0100dfbe3c9684e2318",
+    "https://deno.land/x/esbuild@v0.20.0/mod.js": "5c6fc2e98424ced3a4159c2f267c6bc62b49906e9dc86f724b3d88a482c55c70",
+    "https://deno.land/x/sqlite@v3.8/build/sqlite.js": "72f63689fffcb9bb5ae10b1e8f7db09ea845cdf713e0e3a9693d8416a28f92a6",
+    "https://deno.land/x/sqlite@v3.8/build/vfs.js": "08533cc78fb29b9d9bd62f6bb93e5ef333407013fed185776808f11223ba0e70",
+    "https://deno.land/x/sqlite@v3.8/mod.ts": "e09fc79d8065fe222578114b109b1fd60077bff1bb75448532077f784f4d6a83",
+    "https://deno.land/x/sqlite@v3.8/src/constants.ts": "90f3be047ec0a89bcb5d6fc30db121685fc82cb00b1c476124ff47a4b0472aa9",
+    "https://deno.land/x/sqlite@v3.8/src/db.ts": "7d3251021756fa80f382c3952217c7446c5c8c1642b63511da0938fe33562663",
+    "https://deno.land/x/sqlite@v3.8/src/error.ts": "f7a15cb00d7c3797da1aefee3cf86d23e0ae92e73f0ba3165496c3816ab9503a",
+    "https://deno.land/x/sqlite@v3.8/src/function.ts": "e4c83b8ec64bf88bafad2407376b0c6a3b54e777593c70336fb40d43a79865f2",
+    "https://deno.land/x/sqlite@v3.8/src/query.ts": "d58abda928f6582d77bad685ecf551b1be8a15e8e38403e293ec38522e030cad",
+    "https://deno.land/x/sqlite@v3.8/src/wasm.ts": "e79d0baa6e42423257fb3c7cc98091c54399254867e0f34a09b5bdef37bd9487",
+    "https://esm.sh/@supabase/supabase-js@2.43.4": "b6163f4f90c7018f43fdd9bab1b7ef5bcbb74114352de77dfbc49e53e23a0174",
+    "https://esm.sh/preact@10.22.0": "55397119dec12d6ee0c5a3160753851a7ce136f14767bbb1ec0fa511cf82ad16",
+    "https://esm.sh/preact@10.22.0/hooks": "94fe12928993c62115b7bad4b2dcc3fa796d741fee12f6c88425ee4ff47cf0e1",
+    "https://esm.sh/preact@10.22.0/jsx-runtime": "c6185b52c1673f9d309dd6046051e9b6c034f14858bef62ea2a9fe9ef1ea2201",
+    "https://esm.sh/stable/preact@10.22.0/denonext/hooks.js": "09230113132c216bbc3847aaad11289771e088be1b0eb9e49cbc724faaeac205",
+    "https://esm.sh/stable/preact@10.22.0/denonext/jsx-runtime.js": "de60943799b1cbe6066c4f83f4ca71ef37011d7f5be7bef58ed980e8ff3f996a",
+    "https://esm.sh/stable/preact@10.22.0/denonext/preact.mjs": "20c9563e051dd66e053d3afb450f61b48f2fa0d0ce4f69f8f0a2f23c1ef090da",
+    "https://esm.sh/v135/@supabase/auth-js@2.64.2/denonext/auth-js.mjs": "f87ccfa4e23123f7ab122f814fa37ce26c00457a3e32cea718a726d72fec1f37",
+    "https://esm.sh/v135/@supabase/functions-js@2.3.1/denonext/functions-js.mjs": "c10a0bbd935fc12cae58918b8e23cb339d54c443983caeb597dd8cd76a76f940",
+    "https://esm.sh/v135/@supabase/node-fetch@2.6.15/denonext/node-fetch.mjs": "efad00ea3d4cbe1bee688836ef75339d49a1981bc5728a13e9ad5f26791d5efb",
+    "https://esm.sh/v135/@supabase/postgrest-js@1.15.2/denonext/postgrest-js.mjs": "1d36cf3106c6dd6ce21473b57d88478802ceef6d22e67af1f92c508607302e50",
+    "https://esm.sh/v135/@supabase/realtime-js@2.9.5/denonext/realtime-js.mjs": "a8648545237fed582a2a01d72d2d9ed9fa28b6adbcba8a844c58cc90d526760d",
+    "https://esm.sh/v135/@supabase/storage-js@2.5.5/denonext/storage-js.mjs": "66e29e4e55c7d396503e2d1d9376cfbc34f046b962bce4524c2d80b209fff413",
+    "https://esm.sh/v135/@supabase/supabase-js@2.43.4/denonext/supabase-js.mjs": "c720cd318866b1b4301b3048df7db467b24bbccc5e760de43cf36952be4a68a3",
+    "https://esm.sh/v135/bufferutil@4.0.8/denonext/bufferutil.mjs": "60a4618cbd1a5cb24935c55590b793d4ecb33862357d32e1d4614a0bbb90947f",
+    "https://esm.sh/v135/node-gyp-build@4.6.1/denonext/node-gyp-build.mjs": "5d28b312f145a6cb2ec0dbdd80a7d34c0e0e6b5dcada65411d8bcff6c8991cc6",
+    "https://esm.sh/v135/utf-8-validate@6.0.3/denonext/utf-8-validate.mjs": "410c48d66840e987e474a4849cd25829817415cedd25466280effb1287d05aa5",
+    "https://esm.sh/v135/ws@8.17.0/denonext/ws.mjs": "098384c6d6b787c4074dae8141a61bfa93a271ccb699b4b426c75141c9ef5560",
     "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/mod.ts": "b32347385f2efc7dd90a9e5f6386fded9bde505e3f1c4b07b8509c77206d15a6",
     "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/src/canvas/box.ts": "3f6a41af65942b069795d895c2a73d039a83ba35c01b5236ea88d1de65ba3ebf",
     "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/src/canvas/canvas.ts": "31daa080882956f19f5bf8a6b52f7a946ebc34bdba103b007ce4e73c2b922409",
@@ -168,6 +275,33 @@
     "https://raw.githubusercontent.com/Im-Beast/deno_tui/49e7a24/src/utils/sorted_array.ts": "d7b55e9c6489102fbee46d632040449f960f2ed3ae0d6bc3326e6d6ec1450d97",
     "https://raw.githubusercontent.com/Im-Beast/deno_tui/49e7a24/src/utils/strings.ts": "6eff09ec0cf58aee239df3ca41d55f22694cdb4bc73b213a9066f11b65218419",
     "https://raw.githubusercontent.com/Im-Beast/deno_tui/49e7a24/src/view.ts": "77c9dfdb3632f95c2456036c5e30f90cfbbad62cbb4f370cba48b992523aa619",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/event.ts": "1c0b1e348cffd2a9bc250e5b05a0492953c9d9e4e1f10a2b341914c7c4c46512",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/router.ts": "402b6c0295be0a4602ffa8df2885d7a6149c205bf65417ae7787221c219bb3eb",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/server.ts": "e8e5e82928bd732d6a8ae76a36c159beffd36b448aba8251d7ee4689d7078eaf",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/utils/broadcaster.ts": "089b3c020c682ab8febec3b2d4d66a0247150b7496abd5612a57ceff36bd0e09",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/utils/extension.ts": "c5c567ad479b992a8efd35d98439b0388e741427a0571cad781add67b4f482e7",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/utils/file.ts": "90c37607beae9d8336156c51afaa7e2940c199831745a6149aabb26ae79b1fdc",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/utils/mime-types.ts": "1608cba4be5b0ca4a1654a69c79b63f1372abf9a5d6064adecbb2390028369e1",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/lib/utils/serve.ts": "13740ac64b5db517e5e82b386e057b1847729c34c2ba1586cdf4bb455d6ce963",
+    "https://raw.githubusercontent.com/agorushkin/http-server/424fd0f/mod.ts": "f143861af2668cb827398997c707c69493f0ed086eb0c864b4925c4f304cc1d9",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/event.ts": "3c49ac1746c5296f666bca8c86ccb355ad63706d3e8316df51752398d53b501d",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/router.ts": "402b6c0295be0a4602ffa8df2885d7a6149c205bf65417ae7787221c219bb3eb",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/server.ts": "e8e5e82928bd732d6a8ae76a36c159beffd36b448aba8251d7ee4689d7078eaf",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/utils/broadcaster.ts": "089b3c020c682ab8febec3b2d4d66a0247150b7496abd5612a57ceff36bd0e09",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/utils/extension.ts": "c5c567ad479b992a8efd35d98439b0388e741427a0571cad781add67b4f482e7",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/utils/file.ts": "4c558dd0d8cf28cf7d1e4d9ce6dafb8e6d79edb67f3c154d17aac32513d7cb0f",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/utils/mime-types.ts": "1608cba4be5b0ca4a1654a69c79b63f1372abf9a5d6064adecbb2390028369e1",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/lib/utils/serve.ts": "9e6f0edcd1520ba954de4c1c829e464639b5fa53e595c151a824af84c25040ee",
+    "https://raw.githubusercontent.com/agorushkin/http-server/737579a/mod.ts": "f143861af2668cb827398997c707c69493f0ed086eb0c864b4925c4f304cc1d9",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/event.ts": "401df0482d1b39687aa071569f771789d1338f464e5b955cd3a1e07dc21d5243",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/router.ts": "402b6c0295be0a4602ffa8df2885d7a6149c205bf65417ae7787221c219bb3eb",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/server.ts": "e8e5e82928bd732d6a8ae76a36c159beffd36b448aba8251d7ee4689d7078eaf",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/utils/broadcaster.ts": "089b3c020c682ab8febec3b2d4d66a0247150b7496abd5612a57ceff36bd0e09",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/utils/extension.ts": "c5c567ad479b992a8efd35d98439b0388e741427a0571cad781add67b4f482e7",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/utils/file.ts": "90c37607beae9d8336156c51afaa7e2940c199831745a6149aabb26ae79b1fdc",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/utils/mime-types.ts": "1608cba4be5b0ca4a1654a69c79b63f1372abf9a5d6064adecbb2390028369e1",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/lib/utils/serve.ts": "13740ac64b5db517e5e82b386e057b1847729c34c2ba1586cdf4bb455d6ce963",
+    "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/mod.ts": "f143861af2668cb827398997c707c69493f0ed086eb0c864b4925c4f304cc1d9",
     "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/lib/event.ts": "d0f26b054c5a96075a2e86f4377a53bbc7ae5dc99e3cbdad1060a4637db49b4d",
     "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/lib/router.ts": "402b6c0295be0a4602ffa8df2885d7a6149c205bf65417ae7787221c219bb3eb",
     "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/lib/server.ts": "a80833804c929c6e9d60e55337fbdcbcdff239aa5a4688c6d6ca633770eab82e",
@@ -177,6 +311,15 @@
     "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/lib/utils/mime-types.ts": "1608cba4be5b0ca4a1654a69c79b63f1372abf9a5d6064adecbb2390028369e1",
     "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/lib/utils/serve.ts": "9e6f0edcd1520ba954de4c1c829e464639b5fa53e595c151a824af84c25040ee",
     "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/mod.ts": "f143861af2668cb827398997c707c69493f0ed086eb0c864b4925c4f304cc1d9",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/event.ts": "b667e21033cb93d2f646f416152953d7a469c4c00d9163e4e57a32792fd7a0a5",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/router.ts": "402b6c0295be0a4602ffa8df2885d7a6149c205bf65417ae7787221c219bb3eb",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/server.ts": "e8e5e82928bd732d6a8ae76a36c159beffd36b448aba8251d7ee4689d7078eaf",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/utils/broadcaster.ts": "089b3c020c682ab8febec3b2d4d66a0247150b7496abd5612a57ceff36bd0e09",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/utils/extension.ts": "c5c567ad479b992a8efd35d98439b0388e741427a0571cad781add67b4f482e7",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/utils/file.ts": "4c558dd0d8cf28cf7d1e4d9ce6dafb8e6d79edb67f3c154d17aac32513d7cb0f",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/utils/mime-types.ts": "1608cba4be5b0ca4a1654a69c79b63f1372abf9a5d6064adecbb2390028369e1",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/lib/utils/serve.ts": "9e6f0edcd1520ba954de4c1c829e464639b5fa53e595c151a824af84c25040ee",
+    "https://raw.githubusercontent.com/agorushkin/http-server/ae931e4/mod.ts": "f143861af2668cb827398997c707c69493f0ed086eb0c864b4925c4f304cc1d9",
     "https://raw.githubusercontent.com/agorushkin/http-server/ef6e298/lib/event.ts": "f2473c98105081cc3330e2ef75901bdbca3c25a848e2203aa55ea2682f55c14e",
     "https://raw.githubusercontent.com/agorushkin/http-server/ef6e298/lib/router.ts": "402b6c0295be0a4602ffa8df2885d7a6149c205bf65417ae7787221c219bb3eb",
     "https://raw.githubusercontent.com/agorushkin/http-server/ef6e298/lib/server.ts": "a80833804c929c6e9d60e55337fbdcbcdff239aa5a4688c6d6ca633770eab82e",
@@ -214,6 +357,15 @@
     "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/src/error.ts": "f7a15cb00d7c3797da1aefee3cf86d23e0ae92e73f0ba3165496c3816ab9503a",
     "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/src/function.ts": "e4c83b8ec64bf88bafad2407376b0c6a3b54e777593c70336fb40d43a79865f2",
     "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/src/query.ts": "69895232360b4254a8834e3bbea30bc3752cf691dba862f4a393e7a41a2e30eb",
-    "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/src/wasm.ts": "e79d0baa6e42423257fb3c7cc98091c54399254867e0f34a09b5bdef37bd9487"
+    "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/src/wasm.ts": "e79d0baa6e42423257fb3c7cc98091c54399254867e0f34a09b5bdef37bd9487",
+    "https://raw.githubusercontent.com/webview/webview_deno/f60700d/deno.json": "4651eca7ce6639d14b7bfb28e940f6e118e915a8003757193da2d9e9f47defc7",
+    "https://raw.githubusercontent.com/webview/webview_deno/f60700d/mod.ts": "281b770b148b97ad17f675e7a1dff9f5d13b879d08c611c133391d5a45a791c0",
+    "https://raw.githubusercontent.com/webview/webview_deno/f60700d/src/ffi.ts": "dd400b260e6a05cc04c28fe547c63648219f24167fd3cd568c0c538ae0ce11fd",
+    "https://raw.githubusercontent.com/webview/webview_deno/f60700d/src/webview.ts": "2424c56cb5abf7c8a42ad6d80243dd091655e7fe684f6beb8dbc4bd97af1c80b"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@webview/webview"
+    ]
   }
 }

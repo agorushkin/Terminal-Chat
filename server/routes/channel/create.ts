@@ -12,19 +12,25 @@ import {
 import { broadcaster, connections } from '/server/main.ts';
 
 export const createNewChannel: Handler = async (
-  { respond, text, headers },
+  { response, responded, text, headers },
 ) => {
+  if (responded) return;
+
   const token = headers.get('Authorization')!;
 
   const payload = HttpPayload.fromString(await text());
   if (!payload || payload.type !== 'channel-create') {
-    return respond(HttpResponses.BAD_REQUEST);
+    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    return;
   }
 
   const { name: channel } = payload as HttpChannelCreatePayload;
 
   const nameTaken = checkChannelExists(channel);
-  if (nameTaken) return respond(HttpResponses.CHANNEL_NAME_EXISTS);
+  if (nameTaken) {
+    response = { ...response, ...HttpResponses.CHANNEL_NAME_EXISTS };
+    return;
+  }
 
   const user = getUserByToken(token)!;
 
@@ -32,5 +38,4 @@ export const createNewChannel: Handler = async (
   if (socket) broadcaster.subscribe(channel, socket);
 
   createChannel(channel, user);
-  respond(HttpResponses.OK);
 };
