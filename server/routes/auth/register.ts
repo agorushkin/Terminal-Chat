@@ -25,4 +25,5 @@ export const registerUser: Handler = async (
   }
 
   createUser(payload.username, payload.key);
+  respond(HttpResponses.OK);
 };

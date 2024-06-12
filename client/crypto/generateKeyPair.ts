@@ -1,4 +1,4 @@
-export const generateKeyPair = async () => {
+export const generateKeyPair = async (output: string) => {
   const keyPair = await crypto.subtle.generateKey(
     {
       name: 'RSASSA-PKCS1-v1_5',
@@ -20,6 +20,6 @@ export const generateKeyPair = async () => {
     String.fromCharCode(...new Uint8Array(publicKey)),
   );
 
-  await Deno.writeTextFile('./secret/private.pem', privateKeyBase64);
-  await Deno.writeTextFile('./secret/public.pem', publicKeyBase64);
+  await Deno.writeTextFile(`${output}/private.pem`, privateKeyBase64);
+  await Deno.writeTextFile(`${output}/public.pem`, publicKeyBase64);
 };

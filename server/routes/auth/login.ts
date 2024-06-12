@@ -38,7 +38,7 @@ export const generateToken: Handler = async (
   const publicKey = await crypto.subtle.importKey(
     'spki',
     publicKeyArrayBuffer,
-    { name: 'RSASSA-PKCS1-v1_5', namedCurve: 'SHA-256' },
+    { name: 'RSASSA-PKCS1-v1_5', hash: { name: 'SHA-256' } },
     true,
     ['verify'],
   );
@@ -60,5 +60,9 @@ export const generateToken: Handler = async (
   const token = ulid();
   setUserToken(payload.username, token);
   const response = new HttpPayload({ type: 'token', token }).toString();
-  respond({ status: 200, body: response });
+  respond({
+    status: 200,
+    body: response,
+    headers: { 'Content-Type': 'application/json' },
+  });
 };

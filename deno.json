@@ -4,12 +4,12 @@
     "./": "./",
     "x/http": "https://raw.githubusercontent.com/agorushkin/http-server/9f25cd/mod.ts",
     "x/sqlite": "https://raw.githubusercontent.com/dyedgreen/deno-sqlite/489e669/mod.ts",
-    "x/tui": "https://raw.githubusercontent.com/Im-Beast/deno_tui/49e7a24/mod.ts",
-    "x/tui/": "https://raw.githubusercontent.com/Im-Beast/deno_tui/49e7a24/",
+    "x/tui": "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/mod.ts",
+    "x/tui/": "https://raw.githubusercontent.com/Im-Beast/deno_tui/1468491/",
     "x/crayon": "https://raw.githubusercontent.com/crayon-js/crayon/68123ba/main.ts"
   },
   "tasks": {
-    "debug-server": "deno run --watch --allow-net --unstable-broadcast-channel server/main.ts",
+    "debug-server": "deno run --watch --allow-net --allow-read --allow-write server/main.ts",
     "debug-client": "deno run --watch --allow-net --allow-write --unstable-broadcast-channel client/main.ts"
   },
   "fmt": {

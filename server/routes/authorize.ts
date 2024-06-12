@@ -11,7 +11,12 @@ export const checkAuthorization: Handler = (
 
   const path = new URL(href).pathname;
 
-  if (path === '/register' || path === '/connect') return;
+  if (
+    path === '/register' ||
+    path === '/connect' ||
+    path === '/challenge' ||
+    path === '/login'
+  ) return;
 
   if (!token || !getUserByToken(token)) {
     return respond(HttpResponses.UNAUTHORIZED);

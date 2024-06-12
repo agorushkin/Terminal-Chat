@@ -34,5 +34,5 @@ export const sendMessage: Handler = async (
   });
 
   broadcaster.broadcast(channel, payload.toString());
-  respond({ status: 200 });
+  respond(HttpResponses.OK);
 };

@@ -14,7 +14,6 @@ export type Validator = {
 };
 
 const validateFunction = (data: unknown, validator: ValidatorFunction) => {
-  console.log('meow', data, validator);
   const validated = validator(data);
   if (validated === undefined) return null;
   return validated;
