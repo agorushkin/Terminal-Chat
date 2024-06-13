@@ -11,16 +11,16 @@ import {
 
 import { broadcaster, connections } from '/server/main.ts';
 
-export const createNewChannel: Handler = async (
-  { response, responded, text, headers },
-) => {
-  if (responded) return;
+export const createNewChannel: Handler = async (request) => {
+  if (request.responded) return;
 
-  const token = headers.get('Authorization')!;
+  const token = request.headers.get('Authorization')!;
+  const response = request.response;
 
-  const payload = HttpPayload.fromString(await text());
+  const payload = HttpPayload.fromString(await request.text());
   if (!payload || payload.type !== 'channel-create') {
-    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    response.status = HttpResponses.BAD_REQUEST.status;
+    response.body = HttpResponses.BAD_REQUEST.body;
     return;
   }
 
@@ -28,7 +28,8 @@ export const createNewChannel: Handler = async (
 
   const nameTaken = checkChannelExists(channel);
   if (nameTaken) {
-    response = { ...response, ...HttpResponses.CHANNEL_NAME_EXISTS };
+    response.status = HttpResponses.CONFLICT.status;
+    response.body = HttpResponses.CONFLICT.body;
     return;
   }
 
@@ -38,4 +39,7 @@ export const createNewChannel: Handler = async (
   if (socket) broadcaster.subscribe(channel, socket);
 
   createChannel(channel, user);
+
+  response.status = HttpResponses.OK.status;
+  response.body = HttpResponses.OK.body;
 };

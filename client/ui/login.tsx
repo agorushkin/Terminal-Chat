@@ -29,7 +29,7 @@ export const LoginPage = () => {
           console.log(token || 'Failed to login');
         }}
       >
-        <input type='text' placeholder='Username' />
+        <input type='text' placeholder='Username' value='agorushkin' />
         <br />
         <input type='file' accept='.pem' />
         <button type='submit'>Login</button>

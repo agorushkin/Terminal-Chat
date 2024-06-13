@@ -8,28 +8,30 @@ import { getUserKey, getUserToken, setUserToken } from '/server/database.ts';
 
 import { connections } from '/server/main.ts';
 
-export const generateToken: Handler = async (
-  { response, responded, text },
-): Promise<void> => {
-  if (responded) return;
+export const generateToken: Handler = async (request): Promise<void> => {
+  console.log(1);
+  if (request.responded) return;
 
-  const json = await text();
+  const json = await request.text();
   const payload = HttpPayload.fromString(json);
+  const response = request.response;
 
   if (!payload || payload.type !== 'login') {
-    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    request.response = { ...request.response, ...HttpResponses.BAD_REQUEST };
     return;
   }
 
   if (!payload.username || !payload.signature || !payload.challenge) {
-    response = { ...response, ...HttpResponses.INVALID_LOGIN_REQUEST };
+    response.status = HttpResponses.BAD_REQUEST.status;
+    response.body = HttpResponses.BAD_REQUEST.body;
     return;
   }
 
   const key = getUserKey(payload.username);
 
   if (!key) {
-    response = { ...response, ...HttpResponses.USER_NOT_FOUND };
+    response.status = HttpResponses.UNAUTHORIZED.status;
+    response.body = HttpResponses.UNAUTHORIZED.body;
     return;
   }
 
@@ -51,7 +53,8 @@ export const generateToken: Handler = async (
   );
 
   if (!isValid) {
-    response = { ...response, ...HttpResponses.INVALID_SIGNATURE };
+    response.status = HttpResponses.UNAUTHORIZED.status;
+    response.body = HttpResponses.UNAUTHORIZED.body;
     return;
   }
 

@@ -2,7 +2,7 @@
   "imports": {
     "/": "./",
     "./": "./",
-    "x/http": "https://raw.githubusercontent.com/agorushkin/http-server/78d008b/mod.ts",
+    "x/http": "https://raw.githubusercontent.com/agorushkin/http-server/d419ec1/mod.ts",
     "x/sqlite": "https://deno.land/x/sqlite@v3.8/mod.ts",
     "x/webview": "jsr:@webview/webview",
     "x/emit": "https://deno.land/x/emit@0.40.0/mod.ts",

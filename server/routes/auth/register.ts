@@ -4,23 +4,24 @@ import { HttpPayload } from '/shared/payloads/httpPayload.ts';
 
 import { checkUserExists, createUser } from '/server/database.ts';
 
-export const registerUser: Handler = async (
-  { response, responded, text },
-): Promise<void> => {
-  if (responded) return;
+export const registerUser: Handler = async (request): Promise<void> => {
+  if (request.responded) return;
 
-  const json = await text();
+  const json = await request.text();
   const payload = HttpPayload.fromString(json);
+  const response = request.response;
 
   if (!payload || payload.type !== 'registration') {
-    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    response.status = HttpResponses.BAD_REQUEST.status;
+    response.body = HttpResponses.BAD_REQUEST.body;
     return;
   }
 
   const user = checkUserExists(payload.username);
 
   if (user) {
-    response = { ...response, ...HttpResponses.USER_EXISTS };
+    response.status = HttpResponses.CONFLICT.status;
+    response.body = HttpResponses.CONFLICT.body;
     return;
   }
 

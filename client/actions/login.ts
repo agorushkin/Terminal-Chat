@@ -26,7 +26,6 @@ export const login = async (
 
   const loginReq = await fetch(`http://localhost:8080/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     body: new HttpPayload({ type: 'login', username, challenge, signature })
       .toString(),
   });

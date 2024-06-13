@@ -6,30 +6,32 @@ import { SocketPayload } from '/shared/payloads/socketPayload.ts';
 import { checkChannelExists, getUserByToken } from '/server/database.ts';
 import { broadcaster } from '/server/main.ts';
 
-export const sendMessage: Handler = async (
-  { response, responded, params, text, headers },
-): Promise<void> => {
-  if (responded) return;
+export const sendMessage: Handler = async (request): Promise<void> => {
+  if (request.responded) return;
 
-  const token = headers.get('Authorization')!;
-  const channelId = params.get('channel');
+  const token = request.headers.get('Authorization')!;
+  const channelId = request.params.get('channel');
+  const response = request.response;
 
   if (!channelId) {
-    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    response.status = HttpResponses.BAD_REQUEST.status;
+    response.body = HttpResponses.BAD_REQUEST.body;
     return;
   }
 
   const channel = checkChannelExists(channelId);
   if (!channel) {
-    response = { ...response, ...HttpResponses.CHANNEL_NOT_FOUND };
+    response.status = HttpResponses.NOT_FOUND.status;
+    response.body = HttpResponses.NOT_FOUND.body;
     return;
   }
 
   const author = getUserByToken(token)!;
 
-  const message = HttpPayload.fromString(await text());
+  const message = HttpPayload.fromString(await request.text());
   if (!message || message.type !== 'message') {
-    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    response.status = HttpResponses.BAD_REQUEST.status;
+    response.body = HttpResponses.BAD_REQUEST.body;
     return;
   }
 
@@ -40,4 +42,7 @@ export const sendMessage: Handler = async (
   });
 
   broadcaster.broadcast(channel, payload.toString());
+
+  response.status = HttpResponses.OK.status;
+  response.body = HttpResponses.OK.body;
 };

@@ -10,29 +10,31 @@ import {
 
 import { broadcaster, connections } from '/server/main.ts';
 
-export const joinChannel: Handler = (
-  { response, responded, params, headers },
-) => {
-  if (responded) return;
+export const joinChannel: Handler = (request) => {
+  if (request.responded) return;
 
-  const token = headers.get('Authorization')!;
+  const token = request.headers.get('Authorization')!;
+  const response = request.response;
 
-  const channel = params.get('channel');
+  const channel = request.params.get('channel');
   if (!channel || isNaN(parseInt(channel))) {
-    response = { ...response, ...HttpResponses.BAD_REQUEST };
+    response.status = HttpResponses.BAD_REQUEST.status;
+    response.body = HttpResponses.BAD_REQUEST.body;
     return;
   }
 
   const channelExists = checkChannelExists(channel);
   if (!channelExists) {
-    response = { ...response, ...HttpResponses.CHANNEL_NOT_FOUND };
+    response.status = HttpResponses.NOT_FOUND.status;
+    response.body = HttpResponses.NOT_FOUND.body;
     return;
   }
 
   const user = getUserByToken(token)!;
   const isUserInChannel = checkUserInChannel(user, channel);
   if (isUserInChannel) {
-    response = { ...response, ...HttpResponses.USER_ALREADY_IN_CHANNEL };
+    response.status = HttpResponses.CONFLICT.status;
+    response.body = HttpResponses.CONFLICT.body;
     return;
   }
 
@@ -40,4 +42,7 @@ export const joinChannel: Handler = (
   if (socket) broadcaster.subscribe(channel, socket);
 
   addUserToChannel(channel, user);
+
+  response.status = HttpResponses.OK.status;
+  response.body = HttpResponses.OK.body;
 };

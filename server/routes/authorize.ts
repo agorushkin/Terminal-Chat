@@ -4,7 +4,7 @@ import { HttpResponses } from '/shared/payloads/httpResponses.ts';
 import { getUserByToken } from '/server/database.ts';
 
 export const checkAuthorization: Handler = (
-  { headers, href, responded, respond },
+  { headers, href, response, responded, respond },
 ): void => {
   if (responded) return;
   const token = headers.get('Authorization');
@@ -19,6 +19,6 @@ export const checkAuthorization: Handler = (
   ) return;
 
   if (!token || !getUserByToken(token)) {
-    return respond(HttpResponses.UNAUTHORIZED);
+    return respond({ ...response, ...HttpResponses.UNAUTHORIZED });
   }
 };

@@ -22,8 +22,4 @@ server.use(...channelRouter, ...authRouter);
 
 server.get('/connect', handleWebsocketConnection);
 
-server.use(({ response, responded, href }) =>
-  console.log(href, response, responded)
-);
-
 server.listen(8080);
