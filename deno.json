@@ -15,7 +15,7 @@
   },
   "tasks": {
     "debug-server": "deno run --watch --allow-net --allow-read --allow-write server/main.ts",
-    "debug-client": "deno run --watch --allow-net --allow-write --unstable-broadcast-channel client/main.ts",
+    "debug-client": "deno task bundle && deno run -A --unstable-ffi client/main.ts",
     "bundle": "deno run -A bundle/bundle.ts"
   },
   "fmt": {

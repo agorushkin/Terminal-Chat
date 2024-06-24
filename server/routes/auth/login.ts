@@ -9,7 +9,6 @@ import { getUserKey, getUserToken, setUserToken } from '/server/database.ts';
 import { connections } from '/server/main.ts';
 
 export const generateToken: Handler = async (request): Promise<void> => {
-  console.log(1);
   if (request.responded) return;
 
   const json = await request.text();
